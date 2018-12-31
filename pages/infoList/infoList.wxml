@@ -1,15 +1,22 @@
-<scroll-view scroll-y class="info-content">
+<import src="../../components/loading-page/loading-page.wxml"/>
 
-  <view class="info-item" bindtap='clickInfoItem' wx:for="{{infomations}}" wx:key="infoIndex" wx:for-item="infoItem" data-link-type="infoItem.link_type" data-link="infoItem.link">
-    <text class="info-title-wrap">深圳湾超级总部深圳湾超级总部深圳湾超级总部深圳湾超级总部深圳湾超级总部深圳湾超级总部</text>
-    <text class="info-desc">接着卓越集团的名气接着卓越集团的名气接着卓越集团的名气</text>
-    <image src="{{adviserItem.picture}}" class="info-image" mode="aspectFill"></image>
+<block wx:if="{{props.infoListStore.ui.pageInited}}">
+  <scroll-view scroll-y class="info-content">
 
-     <view class="view-time">
-      <view class="info-view">5000人读过</view>
-      <view class="time">今天</view>
-     </view>
-  </view>
-  <image src="cloud://test-45000c.7465-test-45000c/卓越中寰/资讯图/info-bg.jpg" mode="aspectFill" class="bg"></image>
-  
-</scroll-view>
+    <view class="info-item" bindtap='clickInfoItem' wx:for="{{props.infoListStore.infomations}}" wx:key="infoIndex" wx:for-item="infoItem" data-link-type="infoItem.link_type" data-link="infoItem.link">
+      <text class="info-title-wrap">深圳湾超级总部深圳湾超级总部深圳湾超级总部深圳湾超级总部深圳湾超级总部深圳湾超级总部</text>
+      <text class="info-desc">接着卓越集团的名气接着卓越集团的名气接着卓越集团的名气</text>
+      <image src="{{adviserItem.picture}}" class="info-image" mode="aspectFill"></image>
+
+      <view class="view-time">
+        <view class="info-view">5000人读过</view>
+        <view class="time">今天</view>
+      </view>
+    </view>
+    <image src="cloud://test-45000c.7465-test-45000c/卓越中寰/资讯图/info-bg.jpg" mode="aspectFill" class="bg"></image>
+    
+  </scroll-view>
+</block>
+<block wx:else>
+  <template is="loading-page"/>
+</block>

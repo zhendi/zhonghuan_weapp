@@ -1,6 +1,12 @@
+import { observer } from '../../vendor/wechat-weapp-mobx/observer';
+import page from '../../libs/page';
 import api from '../../libs/api';
+import infoListStore from '../../stores/pages/infoListStore';
 
-Page({
+Page(observer(Object.assign({}, page, {
+  props: {
+    infoListStore
+  },
 
   /**
    * 页面的初始数据
@@ -80,10 +86,12 @@ Page({
   initPage() {
     api.getPagesInfoList({
       success: (data) => {
+        this.props.infoListStore.set(data['result_rows']);
+        this.props.infoListStore.updateUI({ pageInited: true });
       },
       complete: () => {
         wx.stopPullDownRefresh();
       }
     });
   }
-})
+})));
