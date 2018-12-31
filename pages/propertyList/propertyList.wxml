@@ -1,0 +1,122 @@
+<scroll-view  scroll-y class="container">
+ <!-- 授权 -->
+  <view class="auth-win-wrap" wx:if="{{isShowAuthWin}}">
+    <view class="auth-mask"></view>
+    <view class="auth-win">
+      <view class="auth-close" bindtap='closeAuth'>
+        <view class="auth-close-left"></view>
+        <view class="auth-close-right"></view>
+      </view>
+      <view class="auth-title">卓越中寰</view>
+      <view class="auth-win-desc">卓越中寰获取登录授权</view>
+      <view class="auth-button">
+        <button
+          open-type="getUserInfo" 
+          bindgetuserinfo="onGetUserInfo"
+          class="userinfo-avatar"
+          plain="true" style="border: none;">
+          授权登录
+        </button>
+      </view>
+    </view>
+  </view>
+  <!-- 定位 -->
+  <view class="position padding">
+    <text class="city">深圳</text>
+    <image src="../../images/icon_position.svg" class="position-icon"></image>
+  </view>
+  <!-- 图片轮播 -->
+  <swiper class="pictures-list" indicator-dots indicator-color="rgba(0, 0, 0, 0.5)" indicator-active-color="#ffffff" circular>
+    <swiper-item wx:for="{{developerInfo.pictures}}" wx:key="developerInfo._id">
+      <view class="pictures-list-item" bindtap='clickSwiperPics'>
+         <image src="{{item}}" class="pictures-list-item-image"></image>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 资讯 -->
+  <view class="info-container">
+    <view class="info-top">
+      <view class="info-top-title">卓越房刊</view>
+      <view class="info-more-wrap">
+        <text class="info-more" bindtap='showMoreInfo'>更多楼讯</text>
+        <image src="../../images/icon_arrow_right.svg" class="adress-arrow-right"></image>
+      </view>
+    </view>
+    <scroll-view scroll-x class="info-content">
+      <view class="info-item" bindtap='clickInfoItem' wx:for="{{infomations}}" wx:key="infoIndex" wx:for-item="infoItem" data-link-type="infoItem.link_type" data-link="infoItem.link">
+        <text class="info-title-wrap">{{infoItem.title}}
+        </text>
+        <view class="info-middle">
+          <image src="{{adviserItem.picture}}" class="info-image" mode="aspectFill"></image>
+          <text class="info-desc">{{infoItem.desc}}</text>
+        </view>
+        <view class="info-view">{{infoItem.people}}人读过</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 楼盘列表 -->
+  <view class ="propertys-container">
+    <text class="homes-desc padding">精选楼盘</text>
+    <!-- 分割线 -->
+    <view class="line padding"></view>
+    <!-- 楼盘信息 -->
+    <view wx:for="{{propertyList}}" wx:key="index" wx:for-item="item">
+      <view bindtap='navigateToDetail' data-property-id="{{item._id}}">
+        <!-- 标题，位置 -->
+        <view class="name-position padding">
+          <text class="name">{{item.name}}</text>
+          <text class="area">{{item.region}}</text>
+        </view>
+        <view class="detail-position-wrap padding">
+          <text class="detail-position">{{item.location.address}}</text>
+        </view>
+        <!-- 楼盘信息 -->
+        <view class="detail-info padding">
+          <!-- 楼盘图片 -->
+          <view class="property-image-wrap">
+            <image src="{{item.propertyImage}}" class="property-image" mode="scaleToFill"></image>
+          </view>
+          <!-- 楼盘价格、围观、标签 -->
+          <view class="other-info">
+            <view class="no-price-wrap" wx:if="{{!item.price}}">
+              <text class="no-price">暂无定价</text>
+            </view>
+            <view class="price-wrap" wx:else>
+              <text class="price">{{item.price}}</text>
+              <text class="price-desc">均价约（元/平）</text>
+            </view>
+            <view class="watch-people-wrap">
+              <text class="watch-people">{{item.visitorNum}}人关注</text>
+            </view>
+            <view class="lable-wrap">
+              <text class="property-lable" wx:for="{{item.label}}" wx:key="" wx:for-index="labelIndex"       wx:for-item="labelItem" wx:if="{{labelIndex<3}}"  >{{labelItem}}</text>  
+            </view>
+          </view>
+        </view> 
+      </view>
+
+      <!-- 顾问信息 -->
+      <view class="adviser-info">
+        <scroll-view scroll-x class="adviser-container">
+          <view class="adviser-wrap" bindtap='navigateToAdviser' wx:for="{{item.adviser}}" wx:key="adviserIndex" wx:for-item="adviserItem" data-adviser-id="{{adviserItem.name + '_' + adviserItem.phone}}" data-property-id="{{item._id}}">
+            <image src="{{adviserItem.picture}}" class="adviser" mode="aspectFill"></image>
+            <image src="../../images/icon_small_level.svg" class="adviser-level"></image>
+          </view>
+        </scroll-view>
+        <view class="adviser-desc-wrap">
+          <view class="adviser-desc-left">星级顾问等你来撩</view>
+          <view class="adviser-desc-right">
+            <text class="more-adviser-title" bindtap='navigateToAdviser' data-property-id="{{item._id}}">更多顾问</text>
+            <image src="../../images/arrow-right.png" class="more-adviser-icon"></image>
+          </view>
+        </view>
+      </view>
+      <view class="line"></view>
+    </view>
+  </view>
+  <view class="bottom-desc" wx:if="{{showBottomMore}}">
+    <text class="bottom-desc">更多精选楼盘敬请期待</text>
+  </view>
+</scroll-view>

@@ -1,0 +1,6 @@
+<template name="loading-page">
+  <view class="loading-page">
+    <image class="loading-page-icon" src="/images/loading.gif"/>
+    <view class="loading-page-text">页面加载中</view>
+  </view>
+</template>

@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/infoList/infoList",
+    "pages/propertyList/propertyList",
+    "pages/pages/pages",
+    "pages/propertyDetail/propertyDetail",
+    "pages/image/image",
+    "pages/visitor/visitor",
+    "pages/adviser/adviser",
+    "pages/webview/webview"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#e70012",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "卓越中寰",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light"
+  }
+}

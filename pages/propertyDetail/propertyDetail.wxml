@@ -1,0 +1,199 @@
+<view class="page-wrap">
+  <!-- 授权 -->
+  <view class="auth-win-wrap" wx:if="{{isShowAuthWin}}">
+    <view class="auth-mask"></view>
+    <view class="auth-win" >
+      <view class="auth-close" bindtap='closeAuth'>
+        <view class="auth-close-left"></view>
+        <view class="auth-close-right"></view>
+      </view>
+      <view class="auth-title">卓越中寰</view>
+      <view class="auth-win-desc">卓越中寰获取登录授权</view>
+      <view class="auth-button">
+        <button
+          open-type="getUserInfo" 
+          bindgetuserinfo="onGetUserInfo"
+          class="userinfo-avatar"
+          plain="true" style="border: none;">
+          授权登录
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 图片 -->
+  <view class="property-image-wrap">
+    <image src="{{propertyInfo.propertyImage}}" mode="aspectFill" class="property-image"></image>
+  </view>
+  <scroll-view scroll-y class="container">  
+    <view class="name-price">
+      <text class="property-name">{{propertyInfo.name}}</text>
+      <view class="name-price-right"  wx:if="{{!propertyInfo.price}}">
+        <text class="no-property-price">暂无定价</text>
+      </view>
+      <view class="name-price-right" wx:else>
+       <text class="property-price">{{propertyInfo.price}}</text>
+       <text class="property-price-desc">均价约（元/平）</text>
+      </view>
+    </view>
+    <!-- 标签 -->
+    <view class="lable-wrap">
+      <text class="property-lable" wx:for="{{propertyInfo.label}}" wx:key="index">{{item}}</text>  
+    </view>
+    <!-- 售楼地址 -->
+    <view class="detail-position-wrap">
+      <view class="detail-position-desc">售楼地址</view>
+      <view class="detail-position-container">
+        <view class="adress" bindtap='goToLocation'>{{propertyInfo.location.address}}</view>
+        <image src="../../images/icon_arrow_right.svg" class="adress-arrow-right"></image>
+      </view>
+    </view>
+    <view class="line" style="margin-top: 15px;"></view>
+    <!-- 围观 -->
+    <view class="watch-people-wrap">
+      <view class="watch-people-item right-line">
+        <view class="watch-num-wrap">
+          <text class="watch-people watch-people-text">关注人数</text>
+          <text class="watch-people-num">{{propertyInfo.visitorNum}}</text>
+        </view>
+        <view class="watch-people-image-wrap" bindtap="navToPropertyWatch">
+          <image src="{{item.avatarUrl}}" class="watch-people-image" mode="aspectFill" wx:for="{{propertyAdviserList}}" wx:key="index" style="left: {{index*50 + 'rpx'}}"></image>
+          <!-- 点击图片图片 -->
+          <!-- <image src=""></image> -->
+        </view>
+      </view>
+      <!-- 我的围观 -->
+      <view class="watch-people-item">
+        <view class="watch-num-wrap my-watch">
+          <text class="watch-people-text">我的关注</text>
+          <text class="watch-people-num">{{myVisitorCount}}</text>
+        </view>
+        <view class="watch-people-image-wrap my-watch" bindtap="navToMyWatch">
+          <image src="{{item.avatarUrl}}" class="watch-people-image" mode="aspectFill" wx:for="{{myAdviserList}}" wx:key="" style="left: {{index*50 + 'rpx'}}"></image>
+          <!-- 点击图片图片 -->
+          <!-- <image src=""></image> -->
+        </view>
+      </view>
+    </view>
+    <view class="line" style="margin-top: 15px;"></view>
+    <!-- 顾问 -->
+    <view>
+      <view class="adviser-desc">找顾问聊聊</view>
+      <view class="adviser-title">您的专属顾问</view>
+      <!-- 顾问详情 -->
+      <view class="adviser-container">
+        <view class="adviser-image-wrap">
+          <image src="{{adviserInfo.picture}}" class="adviser-image" mode="aspectFill"></image>
+        </view>
+        <view class="adviser-info">
+          <view>
+            <text class="adviser-name">{{adviserInfo.name}}</text>
+            <text class="adviser-grade">{{adviserInfo.level}}</text>
+          </view>
+          <view class="adviser-property">服务楼盘</view>
+          <view class="adviser-property-name">{{adviserInfo.property}}</view>
+          <view class="service-level">星级服务</view>
+          <view class="service-level-wrap">
+            <image src="../../images/level.png" class="service-level-image" mode="aspectFit"></image>
+          </view>
+        </view>
+      </view>
+      <!-- 拨号 -->
+      <view class="call-phone-wrap" bindtap="callPhone" data-phone="{{adviserInfo.phone}}">
+        <image class="call-phone-image" src="../../images/icon_call.svg"></image>
+      </view>
+    </view>
+    <!-- 楼盘详情 -->
+    <view class="property-detail">
+      <view class="property-detail-title">楼盘详情</view>
+      <view class="property-detali-item margin-detail" wx:for="{{propertyInfo.propertyDetail}}" wx:key="index">
+        <view class="property-detali-item-name">{{item.name}}</view>
+        <view class="property-detali-item-value">{{item.value}}</view>
+      </view>
+    </view>
+    <!-- 楼盘图片 -->
+    <view class="picture-info-container">
+      <view class="picture-info-title">楼盘近景</view>
+      <view class="property-picture-wrap" wx:for="{{propertyInfo.pictures}}" wx:key="" wx:for-item="picTypeItem" wx:for-index="groupIndex">
+        <view class="picture-desc">{{picTypeItem.name + '(' + picTypeItem.pictures.length + ')'}}</view>
+        <scroll-view scroll-x class="pictrue-info-item">
+          <image wx:for="{{picTypeItem.pictures}}" wx:key="picsIndex" wx:for-item="item" wx:for-index="pictureIndex" src="{{item}}" class="property-picture-item" mode="aspectFill" bindtap='navigatorToImage' data-group-index="{{groupIndex}}" data-selected-picture="{{pictureIndex}}"  ></image>
+        </scroll-view>
+      </view>
+    </view>
+    <!-- 地图 -->
+    <view class="map-title">地理位置</view>
+    <view class="map-container" bindtap='goToLocation'>
+      <view class="map-wrap">
+        <image src="{{propertyInfo.location.picture}}" mode="aspectFill" class="map-image"></image>
+      </view>
+      <view class="navigator-wrap">
+        <image src="../../images/icon_nagative.svg" class="navigator-image"></image>
+      </view>
+    </view>
+    <!-- 楼盘亮点-->
+    <view>
+      <view class="feature-title">楼盘亮点</view>
+      <view class="feature-desc">亮点概述</view>
+      <view class="feature-content">{{propertyInfo.features ? propertyInfo.features.desc : ''}}</view>
+      <view class="feature-container {{isShowMore ? 'height-limit' : ''}}">
+        <view class="feature-item" wx:for="{{propertyInfo.features ? propertyInfo.features.contents : []}}" wx:key="index">
+          <view class="feature-item-name">
+            <image src="../../images/icon_feature.svg" class="feature-icon"></image>
+            <text class="feature-text">{{item.title}}</text>
+          </view>
+          <view class="feature-item-content">
+            {{item.desc}}
+          </view>
+        </view>
+        <view class="show-more" bindtap="showMore" wx:if="{{isShowMore}}">
+          <view class="show-more-text">展示全部</view>
+          <image src="../../images/icon_arrow_dowm.svg" class="show-more-icon" ></image>
+        </view>
+      </view>
+    </view>
+    <view class="contract"> {{propertyInfo.contract}}
+    </view>
+  </scroll-view>
+  <view class="bottom">
+    <view class="share-wx">
+      <view class="home-button" bindtap="goHome">
+        <view class="share-wx-wrap">
+          <image src="../../images/icon-home.svg" class="share-wx-image"></image>
+        </view>
+        <text class="share-wx-text">返回首页</text>
+      </view>
+    </view>
+    <!-- 分享 -->
+    <view class="share-wx">
+      <button open-type='share' class="share-button" plain="true" style="border: none;">
+        <view class="share-wx-wrap">
+          <image src="../../images/icon_wx_share.svg" class="share-wx-image"></image>
+        </view>
+        <text class="share-wx-text">分享好友</text>
+      </button>
+    </view> 
+    <!-- 保存图片 -->
+    <view class="share-wx">
+      <view class="home-button" bindtap="showSharePopup">
+        <view class="share-wx-wrap">
+          <image src="../../images/save_picture_icon.svg" class="share-wx-image"></image>
+        </view>
+        <text class="share-wx-text">保存图片</text>
+      </view>
+    </view>
+    <!-- 免费咨询 -->
+    <image src="../../images/icon_free_call.svg" class="bottom-call-phone" bindtap="callPhone" data-phone="{{propertyInfo.phone}}"></image>
+  </view>
+
+   <!-- 生成海报 -->
+  <popup isShowPop="{{isShowPop}}" bindclosePopup="closePopup" title="保存图片后分享">
+    <view slot="popup">
+      <view class="popup-container" disable-scroll="true" catchtouchmove="doNothing">
+        <canvas canvas-id="shareCanvasBig" class="image-wrap-big"></canvas>
+        <canvas canvas-id="shareCanvas" class="image-wrap" class="image-wrap" disable-scroll="true" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"></canvas>
+        <view class="popup-button" bindtap='saveShareImg'>保存图片</view>
+      </view>
+    </view> 
+  </popup>
+</view>

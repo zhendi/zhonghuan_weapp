@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#e70012",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "粉丝访问记录",
+  "backgroundColor": "#eeeeee",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": true
+}

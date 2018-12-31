@@ -1,0 +1,14 @@
+<view class="popup-warpper {{isShowPop && 'popup-warpper-show'}}" bingdtap="closePopup">
+  <view class="wrapper" style="{{isShowPop && 'transform: translateY(0);'}}">
+    <view class='title pop-title' wx:if="{{title}}">
+      {{title}}
+      <view class="close" bindtap='closePopup'>
+        <view class="close-left"></view>
+        <view class="close-right"></view>
+      </view>
+    </view>
+    <view>
+      <slot name="popup"></slot>
+    </view> 
+  </view>
+</view>

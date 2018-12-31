@@ -1,0 +1,35 @@
+.popup-container{
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+
+}
+.image-wrap{
+  width: 250px;
+  height: 400px;
+  background: #eeeeee;
+  margin-top: 15px;
+}
+.image-wrap-big{
+  position: fixed;
+  top: 200%;
+  left: 0;
+  /* transform: translateY(200%); */
+  width: 750px;
+  height: 1200px;
+  background: #eeeeee;
+}
+.popup-button{
+  width: 300px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #ffffff;
+  background: #e70012;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  font-size: 15px;
+}

@@ -1,0 +1,8 @@
+{
+    "navigationBarBackgroundColor": "#e70012",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "卓越深圳楼盘精选",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": true
+  }

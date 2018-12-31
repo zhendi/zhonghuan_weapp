@@ -1,0 +1,9 @@
+<view class="container-wrap">
+  <text class="title">卓越在深圳总部基地开了一扇门，新的投资之王诞生！？</text>
+  <view class="publish-person-time">
+    <text class="publish-person">卓越集团深圳地产公司 </text>
+    <text class="publish-time">2天前</text>
+  </view>
+  <text space decode class="page-text">最好的建筑是这样的，我们深处在其中，却不知道自然在哪里终了，艺术在哪里开始。——林语堂</text>
+  <image src='../../images/share-piture2.jpg' mode="widthFix" class="page-image"></image>
+</view>

@@ -1,0 +1,30 @@
+<view class="container">
+  <swiper current="{{current}}" previous-margin="25px" next-margin="25px" class="swiper">
+    <swiper-item wx:for="{{adviserList}}" wx:key=""> 
+      <view class="adviser-wrap">
+        <view class="adviser-photo-wrap">
+          <image src="{{item.picture}}" class="adviser-photo" height="262" mode="aspectFill"></image>
+        </view>
+        <view class="adviser-info">
+          <view class="adviser-name-wrap">
+            <view class="adviser-name-left">
+                <text class="adviser-name">{{item.name}}</text>
+                <text class="adviser-rank">{{item.level}}</text>
+            </view>
+            <!-- <view class="adviser-name-right" bindtap='goToPropertyDetail' data-name="{{item.name}}" data-phone="{{item.phone}}">
+              选择该顾问
+            </view> -->
+          </view>
+          <view class="property-name-wrap">
+            <text class="property-title">服务楼盘</text>
+            <text class="property-name">{{item.property}}</text>
+          </view>
+          <view class="level-title">星级服务</view>
+          <image src="../../images/level.png" class="level-image"></image>
+          <!-- <image src="../../images/icon_call.svg" class="call-phone-image" bindtap='callPhone' data-phone="{{item.phone}}"></image> -->
+          <view class="select-adviser" bindtap='goToPropertyDetail' data-name="{{item.name}}" data-phone="{{item.phone}}">选择顾问</view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>

@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#e70012",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "卓越房刊",
+  "backgroundColor": "#eeeeee",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": true
+}

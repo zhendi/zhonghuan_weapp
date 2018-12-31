@@ -1,0 +1,9 @@
+{
+  "navigationBarBackgroundColor": "#e70012",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "楼盘图片",
+  "backgroundColor": "#eeeeee",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": true,
+  "disableScroll": true
+}

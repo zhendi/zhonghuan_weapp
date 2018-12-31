@@ -1,0 +1,10 @@
+<scroll-view scroll-y class="container">
+  <view class="item" wx:for="{{adviserList}}" wx:key="">
+    <view class="left">
+      <image src="{{item.avatarUrl}}" class="head-photo"></image>
+      <text class="name">{{item.nickName}}</text>
+    </view>
+    <view class="right">{{item.time}}</view>
+  </view>
+  <!-- <view class="no-more" wx:if="{{isNoMore}}">没有更多了</view> -->
+</scroll-view>

@@ -1,0 +1,10 @@
+
+<popup isShowPop="{{isShowPop}}" bindclosePopup="closePopup" title="保存图片后分享">
+  <view slot="popup">
+    <view class="popup-container" catchtouchmove="doNothing">
+      <canvas canvas-id="shareCanvasBig" class="image-wrap-big"></canvas>
+      <canvas canvas-id="shareCanvas" class="image-wrap" disable-scroll="true" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"></canvas>
+      <view class="popup-button" bindtap='saveShareImg'>保存图片</view>
+    </view>
+  </view> 
+</popup>

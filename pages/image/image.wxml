@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="picture-num">{{molecular + '/' + denominator}}</view>
+  <swiper class="pictures-list" bindchange="changeImage" current="{{current}}">
+    <swiper-item wx:for="{{mergePictures}}" wx:key="" style="">
+      <view class="pictures-list-item">
+        <image src="{{item}}" class="image" mode="aspectFit" data-src="{{item}}" bindtap='previewImage'></image>
+      </view>
+    </swiper-item>
+  </swiper>
+  <view class="nav-bottom-wrap">
+    <view class="bottom-item" wx:for="{{pictures}}" wx:key="" bindtap="clickBottomNav" data-group-index="{{index}}">
+      <image class="selected-icon" src="../../images/icon_picture_position.svg" mode="aspectFill" wx:if="{{curBottomIndex == index}}" ></image>
+      <view class="nav-name {{curBottomIndex == index ? 'selected-bottom-item' : ''}}">{{item.name + '(' + item.pictures.length + ')'}}</view>
+    </view>
+  </view>
+</view>

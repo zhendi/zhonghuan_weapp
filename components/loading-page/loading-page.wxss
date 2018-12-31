@@ -1,0 +1,19 @@
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 300rpx;
+}
+
+.loading-page-icon {
+  width: 121rpx;
+  height: 101rpx;
+  margin-bottom: 20rpx;
+}
+
+.loading-page-text {
+  color: #cccccc;
+  font-size: 30rpx;
+}
