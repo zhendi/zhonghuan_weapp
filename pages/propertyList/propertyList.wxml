@@ -82,11 +82,11 @@
           </view>
           <!-- 楼盘价格、围观、标签 -->
           <view class="other-info">
-            <view class="no-price-wrap" wx:if="{{!item.price}}">
+            <view class="no-price-wrap" wx:if="{{!item.price_per_sqm}}">
               <text class="no-price">暂无定价</text>
             </view>
             <view class="price-wrap" wx:else>
-              <text class="price">{{item.price}}</text>
+              <text class="price">{{item.price_per_sqm}}</text>
               <text class="price-desc">均价约（元/平）</text>
             </view>
             <view class="watch-people-wrap">

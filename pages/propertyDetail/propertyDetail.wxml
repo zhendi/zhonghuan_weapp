@@ -28,11 +28,11 @@
   <scroll-view scroll-y class="container">  
     <view class="name-price">
       <text class="property-name">{{propertyInfo.name}}</text>
-      <view class="name-price-right"  wx:if="{{!propertyInfo.price}}">
+      <view class="name-price-right"  wx:if="{{!propertyInfo.price_per_sqm}}">
         <text class="no-property-price">暂无定价</text>
       </view>
       <view class="name-price-right" wx:else>
-       <text class="property-price">{{propertyInfo.price}}</text>
+       <text class="property-price">{{propertyInfo.price_per_sqm}}</text>
        <text class="property-price-desc">均价约（元/平）</text>
       </view>
     </view>
@@ -44,7 +44,7 @@
     <view class="detail-position-wrap">
       <view class="detail-position-desc">售楼地址</view>
       <view class="detail-position-container">
-        <view class="adress" bindtap='goToLocation'>{{propertyInfo.location.address}}</view>
+        <view class="adress" bindtap='goToLocation'>{{propertyInfo.address}}</view>
         <image src="../../images/icon_arrow_right.svg" class="adress-arrow-right"></image>
       </view>
     </view>

@@ -437,8 +437,7 @@ Page(observer(Object.assign({}, page, {
   },
 
   goToLocation () {
-    let propertyInfo = this.data.propertyInfo.location
-    console.log(propertyInfo)
+    let propertyInfo = this.data.propertyInfo
     wx.openLocation({
       latitude: +propertyInfo.latitude,
       longitude: +propertyInfo.longitude,
