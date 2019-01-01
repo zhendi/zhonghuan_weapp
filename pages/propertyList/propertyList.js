@@ -1,6 +1,13 @@
+import { observer } from '../../vendor/wechat-weapp-mobx/observer';
+import page from '../../libs/page';
+import api from '../../libs/api';
+
 import regeneratorRuntime from '../../utils/runtime' 
 const app = getApp()
-Page({
+
+Page(observer(Object.assign({}, page, {
+  props: {
+  },
 
   /**
    * 页面的初始数据
@@ -30,14 +37,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.cloud.init()
     // 初始化数据
     this.initParams(options)
     // 获取开发商信息
-    this.getDevelopListInfo()
+    // this.getDevelopListInfo()
     // 获取楼盘信息
     this.getPropertyListInfo()
-    this.getUserListInfo()
+    // this.getUserListInfo()
     // 获取资讯列表信息
     this.queryInforList()
     // 查询其他信息
@@ -201,7 +207,7 @@ Page({
    */
   onPullDownRefresh: function () {
     // 获取开发商信息
-    this.getDevelopListInfo()
+    // this.getDevelopListInfo()
     // 获取楼盘信息
     this.getPropertyListInfo()
     this.getUserListInfo()
@@ -318,21 +324,18 @@ Page({
     wx.showLoading({
       title: '加载中'
     })
-    wx.cloud.callFunction({
-      name: 'property',
-      data: {},
-      success: res => {
+
+    api.getPropertyList({
+      success: (data) => {
         _this.setData({
           showBottomMore: true
         })
         wx.hideLoading()
-        console.log('获取楼盘信息', res.result.data)
         _this.setData({
-          propertyList: res.result.data
+          propertyList: data.buildings
         })
-        console.log('类型', typeof _this.data.propertyList[0].visitorNum)
       },
-      fail: err => {
+      fail: (err) => {
         _this.setData({
           showBottomMore: true
         })
@@ -341,9 +344,11 @@ Page({
           title: '加载楼盘信息失败',
           icon: 'none'
         })
-        console.error('[云函数] [developers] 调用失败', err)
+      },
+      complete: () => {
+        wx.stopPullDownRefresh();
       }
-    })
+    });
   },
 
   // 获取开发商信息
@@ -404,7 +409,7 @@ Page({
   // 跳转到详情页面
   navigateToDetail (e) {
     let propertyId = e.currentTarget.dataset.propertyId,
-        url = '../propertyDetail/propertyDetail?shareOpenid=' + this.data.shareOpenid + '&propertyId=' + propertyId;
+        url = '/pages/propertyDetail/propertyDetail?shareOpenid=' + this.data.shareOpenid + '&propertyId=' + propertyId;
     wx.navigateTo({
       url: url
     })
@@ -434,19 +439,19 @@ Page({
   },
 
   // 跳转资讯详情页面
-  clickInfoItem () {
+  clickInfoItem (e) {
     let linkType = e.currentTarget.dataset.linkType,
         link = e.currentTarget.dataset.link
     
     if (linkType == 'article') {
     // 跳转微信公众号文章
       wx.navigateTo({
-        url: '../webview/webview?webviewUrl=' + link
+        url: '/pages/webview/webview?webviewUrl=' + link
       })
     } else {
     // 自定义页面
       wx.navigateTo({
-        url: '../pages/pages?pageId=' + link
+        url: '/pages/pages/pages?pageId=' + link
       })
     }
   },
@@ -467,5 +472,17 @@ Page({
     this.setData({
       isShowAuthWin: false
     })
+  },
+
+  initPage() {
+    api.getPagesPropertyList({
+      success: (data) => {
+        this.props.propertyListStore.set(data['result_rows']);
+        this.props.propertyListStore.updateUI({ pageInited: true });
+      },
+      complete: () => {
+        wx.stopPullDownRefresh();
+      }
+    });
   }
-})
+})));
