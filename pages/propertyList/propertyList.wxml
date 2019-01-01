@@ -1,3 +1,5 @@
+<import src="../../components/loading-page/loading-page.wxml"/>
+
 <scroll-view  scroll-y class="container">
  <!-- 授权 -->
   <view class="auth-win-wrap" wx:if="{{isShowAuthWin}}">
@@ -26,13 +28,13 @@
     <image src="../../images/icon_position.svg" class="position-icon"></image>
   </view>
   <!-- 图片轮播 -->
-  <swiper class="pictures-list" indicator-dots indicator-color="rgba(0, 0, 0, 0.5)" indicator-active-color="#ffffff" circular>
+<!--   <swiper class="pictures-list" indicator-dots indicator-color="rgba(0, 0, 0, 0.5)" indicator-active-color="#ffffff" circular>
     <swiper-item wx:for="{{developerInfo.pictures}}" wx:key="developerInfo._id">
       <view class="pictures-list-item" bindtap='clickSwiperPics'>
          <image src="{{item}}" class="pictures-list-item-image"></image>
       </view>
     </swiper-item>
-  </swiper>
+  </swiper> -->
 
   <!-- 资讯 -->
   <view class="info-container">
@@ -63,7 +65,7 @@
     <view class="line padding"></view>
     <!-- 楼盘信息 -->
     <view wx:for="{{propertyList}}" wx:key="index" wx:for-item="item">
-      <view bindtap='navigateToDetail' data-property-id="{{item._id}}">
+      <view bindtap='navigateToDetail' data-property-id="{{item.id}}">
         <!-- 标题，位置 -->
         <view class="name-position padding">
           <text class="name">{{item.name}}</text>

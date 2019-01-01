@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/infoList/infoList",
     "pages/propertyList/propertyList",
+    "pages/infoList/infoList",
     "pages/pages/pages",
     "pages/propertyDetail/propertyDetail",
     "pages/image/image",

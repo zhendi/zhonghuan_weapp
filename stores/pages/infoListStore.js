@@ -5,13 +5,14 @@ import Infomation from '../../models/InfomationModel';
 class InfoListStore {
   constructor() {
     mobx.extendObservable(this, {
-      informations: [],
+      infomations: [],
       ui: { pageInited: false }
     });
   }
 
   set(props) {
-    this.informations = (props.infomations || []).map(infomation => new Infomation(infomation));
+    console.log(props.informations)
+    this.infomations = (props.informations || []).map(infomation => new Infomation(infomation));
     this.updateUI(props.ui || {});
   }
 

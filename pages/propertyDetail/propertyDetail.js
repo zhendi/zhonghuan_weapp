@@ -1,6 +1,13 @@
+import { observer } from '../../vendor/wechat-weapp-mobx/observer';
+import page from '../../libs/page';
+import api from '../../libs/api';
+
 import regeneratorRuntime from '../../utils/runtime' 
 const app = getApp()
-Page({
+
+Page(observer(Object.assign({}, page, {
+  props: {
+  },
 
   /**
    * 页面的初始数据
@@ -26,11 +33,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.cloud.init()
+    // wx.cloud.init()
     // 初始化数据
     this.initParams(options)
     // 查询楼盘信息
-    this.queryPropertyInfo()
+    this.queryPropertyInfo(options.propertyId)
   },
 
   // 查询其他信息
@@ -142,21 +149,21 @@ Page({
   },
 
   // 查询楼盘信息
-  queryPropertyInfo () {
+  queryPropertyInfo (propertyId) {
     let _this = this
     wx.showLoading({
       title: '加载中'
     })
-    wx.cloud.callFunction({
-      name: 'property',
-      data: { '_id': _this.data.propertyId},
-      success: res => {
+
+    console.log(propertyId)
+    api.getProperty(propertyId, {
+      success: (data) => {
         wx.hideLoading()
-        console.log('获取楼盘信息', res.result)
+        console.log('获取楼盘信息', data)
         _this.setData({
-          propertyInfo: res.result.data[0],
-          propertyId: res.result.data[0]['_id'],
-          sharePicture: res.result.data[0]['sharePicture']
+          propertyInfo: data.building,
+          propertyId: data.building.id,
+          sharePicture: null
         })
         // 查询围观信息
         _this.queryAdviser()
@@ -171,22 +178,23 @@ Page({
             console.log('查询其他信息到catch')
           })
       },
-      fail: err => {
+      fail: (err) => {
         wx.hideLoading()
         wx.showToast({
           title: '加载楼盘信息失败',
           icon: 'none'
         })
-        console.error('[云函数] [developers] 调用失败', err)
+      },
+      complete: () => {
+        wx.stopPullDownRefresh();
       }
-    })
+    });
   },
 
   // 查询围观信息
   queryAdviser () {
     let _this = this,
         params = {
-          propertyId: this.data.propertyId,
           limit: 12,
           page: 0,
           queryType: {
@@ -198,33 +206,32 @@ Page({
     wx.showLoading({
       title: '加载中'
     })
-    console.log()
 
-    wx.cloud.callFunction({
-      name: 'visitor',
+    api.getVisitors(this.data.propertyId, {
       data: params,
-      success: res => {
+      success: (data) => {
         wx.hideLoading()
-        console.log('获取围观信息', res.result)
-        let result = res.result
-        console.log(result)
+        console.log('获取围观信息', data)
         _this.setData({
-          propertyVisitorCount: result.propertyVisitorCount || 0,
-          myVisitorCount: result.myVisitorCount || 0,
-          propertyAdviserList: _this.removeRepetion(result.propertyVisitorList.data ? result.propertyVisitorList.data : []),
-          myAdviserList: _this.removeRepetion(result.myVisitorList.data ? result.myVisitorList.data : [])
+          propertyVisitorCount: data.propertyVisitorCount || 0,
+          myVisitorCount: data.myVisitorCount || 0,
+          propertyAdviserList: data.propertyAdviserList || [],
+          myAdviserList: data.myAdviserList || []
         })
         console.log(this.data.propertyAdviserList)
       },
-      fail: err => {
+      fail: (err) => {
         wx.hideLoading()
         wx.showToast({
           title: '加载围观信息失败',
           icon: 'none'
         })
         console.error('[云函数] [visitor] 调用失败', err)
+      },
+      complete: () => {
+        wx.stopPullDownRefresh();
       }
-    })
+    });
   },
 
   // 设置顾问信息
@@ -643,4 +650,4 @@ Page({
       isShowPop: false
     })
   }
-})
+})));
