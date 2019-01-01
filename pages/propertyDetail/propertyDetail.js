@@ -253,7 +253,7 @@ Page(observer(Object.assign({}, page, {
     console.log('展示顾问', adviserInfo)
 
     this.setData({
-      adviserInfo: adviserInfo
+      adviserInfo: {}
     })
   },
 
@@ -438,6 +438,7 @@ Page(observer(Object.assign({}, page, {
 
   goToLocation () {
     let propertyInfo = this.data.propertyInfo.location
+    console.log(propertyInfo)
     wx.openLocation({
       latitude: +propertyInfo.latitude,
       longitude: +propertyInfo.longitude,

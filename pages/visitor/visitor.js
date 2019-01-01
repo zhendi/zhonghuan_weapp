@@ -1,6 +1,13 @@
+import { observer } from '../../vendor/wechat-weapp-mobx/observer';
+import page from '../../libs/page';
+import api from '../../libs/api';
+
+import regeneratorRuntime from '../../utils/runtime' 
 const app = getApp()
-let openidKeyList = {}
-Page({
+
+Page(observer(Object.assign({}, page, {
+  props: {
+  },
 
   /**
    * 页面的初始数据
@@ -220,4 +227,4 @@ Page({
     console.log('onReachBottom')
     this.queryAdviser()
   }
-})
+})));
