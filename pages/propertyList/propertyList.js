@@ -419,7 +419,7 @@ Page(observer(Object.assign({}, page, {
   navigateToAdviser (e) {
     let adviserId = e.currentTarget.dataset.adviserId,
         propertyId = e.currentTarget.dataset.propertyId,
-      url = '../adviser/adviser?adviserId=' + adviserId + '&propertyId=' + propertyId + '&shareOpenid=' + this.data.shareOpenid
+      url = '/pages/adviser/adviser?adviserId=' + adviserId + '&propertyId=' + propertyId + '&shareOpenid=' + this.data.shareOpenid
     console.log(url);
 
     this.data.propertyList.forEach(item => {

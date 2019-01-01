@@ -1,5 +1,13 @@
-// pages/webview/webview.js
-Page({
+import { observer } from '../../vendor/wechat-weapp-mobx/observer';
+import page from '../../libs/page';
+import api from '../../libs/api';
+
+import regeneratorRuntime from '../../utils/runtime' 
+const app = getApp()
+
+Page(observer(Object.assign({}, page, {
+  props: {
+  },
 
   /**
    * 页面的初始数据
@@ -66,4 +74,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+})));

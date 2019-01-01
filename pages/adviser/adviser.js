@@ -1,5 +1,13 @@
+import { observer } from '../../vendor/wechat-weapp-mobx/observer';
+import page from '../../libs/page';
+import api from '../../libs/api';
+
+import regeneratorRuntime from '../../utils/runtime' 
 const app = getApp()
-Page({
+
+Page(observer(Object.assign({}, page, {
+  props: {
+  },
 
   /**
    * 页面的初始数据
@@ -91,7 +99,7 @@ Page({
     let phone = e.currentTarget.dataset.phone,
         name = e.currentTarget.dataset.name,
         adviserId = name + '_' + phone,
-      url = '../propertyDetail/propertyDetail?adviserId=' + adviserId + '&propertyId=' + this.data.propertyId
+      url = '/pages/propertyDetail/propertyDetail?adviserId=' + adviserId + '&propertyId=' + this.data.propertyId
 
     wx.navigateTo({
       url: url
@@ -104,5 +112,5 @@ Page({
     wx.makePhoneCall({
       phoneNumber: phone
     })
-  },
-})
+  }
+})));
